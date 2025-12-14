@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 
 namespace CarConf.Views
 {
+
     public partial class Step5 : Page
     {
         private MainWindow mainWindow;
