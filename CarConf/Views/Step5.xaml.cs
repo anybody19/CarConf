@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,11 +39,15 @@ namespace CarConf.Views
 
         private bool Validate()
         {
-            bool valid = !string.IsNullOrWhiteSpace(NameText.Text)
-                         && Regex.IsMatch(PhoneText.Text, @"^\d+$")
-                         && Regex.IsMatch(EmailText.Text, @"^\S+@\S+\.\S+$");
-            SubmitBtn.IsEnabled = valid;
-            return valid;
+            if (string.IsNullOrWhiteSpace(NameText.Text)
+                &&
+                string.IsNullOrWhiteSpace(PhoneText.Text)
+                &&
+                string.IsNullOrWhiteSpace(EmailText.Text))
+            {
+                return false;
+            }
+            return true;
         }
 
         private void Submit_Click(object sender, RoutedEventArgs e)
@@ -55,7 +58,7 @@ namespace CarConf.Views
                 mainWindow.Config.Phone = PhoneText.Text;
                 mainWindow.Config.Email = EmailText.Text;
 
-                MessageBox.Show("Заявка оформлена!\nСпасибо!", "Успех");
+                MessageBox.Show("Заявка оформлена!\nСпасибо!");
                 Application.Current.Shutdown();
             }
             else
